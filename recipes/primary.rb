@@ -11,10 +11,16 @@ execute '/sbin/drbdadm -- --overwrite-data-of-peer primary disk1'
 
 ruby_block 'wait till sync happen' do
   block do
+    base = 2
+    exp = 0
     not_synced = nil
     begin
-      Chef::Log.info( 'Waiting for 5 seconds for sync' )
-      sleep(5)
+      wait = base ** exp
+      wait = (wait > 60) ? 60 : wait
+      exp = exp + 1
+
+      Chef::Log.info( "Waiting for #{wait} seconds for sync" )
+      sleep( wait )
 
       cmd = shell_out( 'cat /proc/drbd' )
       not_synced = cmd.stdout =~ %r(cs:Connected ro:Primary/Secondary ds:UpToDate/UpToDate)

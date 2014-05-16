@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-require_recipe 'ntp'
+include_recipe 'ntp'
 
 template '/etc/hosts' do
   source 'hosts.erb'
