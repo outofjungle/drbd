@@ -16,14 +16,14 @@ resource disk1
     verify-alg sha1;
   }
 
-  on primary.vagrant.net {
+  on primary-drbd.vagrantup.com {
     device minor 1;
     disk /dev/loop0;
     address 33.33.33.10:7789;
     meta-disk internal;
   }
 
-  on secondary.vagrant.net {
+  on secondary-drbd.vagrantup.com {
     device minor 1;
     disk /dev/loop0;
     address 33.33.33.11:1789;

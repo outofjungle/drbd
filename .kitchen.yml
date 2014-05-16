@@ -6,7 +6,7 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: opscode-centos-6.5
+  - name: drbd
     driver_config:
       require_chef_omnibus: true
       box: opscode-centos-6.5
@@ -23,6 +23,7 @@ suites:
     run_list:
       - recipe[drbd::loopback]
       - recipe[drbd::default]
+      - recipe[drbd::primary]
     attributes:
 
   - name: secondary
@@ -30,5 +31,7 @@ suites:
       network:
         - ["private_network", {ip: "33.33.33.11"}]
     run_list:
+      - recipe[drbd::loopback]
       - recipe[drbd::default]
+      - recipe[drbd::secondary]
     attributes:

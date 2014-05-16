@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+require_recipe 'ntp'
+
 template '/etc/hosts' do
   source 'hosts.erb'
   mode 00644
@@ -35,3 +37,9 @@ template '/etc/drbd.d/disk1.res' do
   owner 'root'
   group 'root'
 end
+
+execute '/sbin/drbdadm create-md disk1' do
+  not_if '/sbin/drbdadm get-gi disk1'
+end
+
+execute '/etc/init.d/drbd start'
