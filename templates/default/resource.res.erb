@@ -1,5 +1,16 @@
-resource disk0
-  {
+resource r0 {
+  device minor 0;
+  disk /dev/loop0;
+  meta-disk internal;
+
+  on primary-drbd.vagrantup.com {
+    address 33.33.33.10:7789;
+  }
+
+  on secondary-drbd.vagrantup.com {
+    address 33.33.33.11:1789;
+  }
+
   startup {
     wfc-timeout 30;
     outdated-wfc-timeout 20;
@@ -14,19 +25,5 @@ resource disk0
   syncer {
     rate 100M;
     verify-alg sha1;
-  }
-
-  on primary-drbd.vagrantup.com {
-    device minor 0;
-    disk /dev/loop0;
-    address 33.33.33.10:7789;
-    meta-disk internal;
-  }
-
-  on secondary-drbd.vagrantup.com {
-    device minor 0;
-    disk /dev/loop0;
-    address 33.33.33.11:1789;
-    meta-disk internal;
   }
 }
