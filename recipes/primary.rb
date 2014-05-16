@@ -11,9 +11,10 @@ execute '/sbin/drbdadm -- --overwrite-data-of-peer primary disk1'
 
 ruby_block 'wait till sync happen' do
   block do
-    base = 2
     exp = 0
+    base = 2
     not_synced = nil
+
     begin
       wait = base ** exp
       wait = (wait > 60) ? 60 : wait
