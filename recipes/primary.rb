@@ -22,10 +22,10 @@ ruby_block 'wait till sync happen' do
   end
 end
 
-execute 'mkfs -t ext3 /dev/drbd1' do
+execute 'mkfs.ext3 /dev/drbd1' do
   not_if 'file -sL /dev/drbd1 | grep ext3'
 end
 
-execute 'mount -t ext2 /dev/drbd1 /mnt/drbd' do
+execute 'mount -t ext3 /dev/drbd1 /mnt/drbd' do
   not_if 'mount | grep "/dev/drbd1"'
 end
