@@ -1,4 +1,4 @@
-resource disk1
+resource disk0
   {
   startup {
     wfc-timeout 30;
@@ -17,14 +17,14 @@ resource disk1
   }
 
   on primary-drbd.vagrantup.com {
-    device minor 1;
+    device minor 0;
     disk /dev/loop0;
     address 33.33.33.10:7789;
     meta-disk internal;
   }
 
   on secondary-drbd.vagrantup.com {
-    device minor 1;
+    device minor 0;
     disk /dev/loop0;
     address 33.33.33.11:1789;
     meta-disk internal;

@@ -28,18 +28,18 @@ packages.each do | pkg |
 end
 
 execute '/sbin/modprobe drbd' do
-  not_if 'lsmod | grep drbd'
+  not_if 'lsmod | /bin/grep drbd'
 end
 
-template '/etc/drbd.d/disk1.res' do
-  source 'disk1.res.erb'
+template '/etc/drbd.d/r0.res' do
+  source 'resource.res.erb'
   mode 00644
   owner 'root'
   group 'root'
 end
 
-execute '/sbin/drbdadm create-md disk1' do
-  not_if '/sbin/drbdadm get-gi disk1'
+execute '/sbin/drbdadm create-md r0' do
+  not_if '/sbin/drbdadm get-gi r0'
 end
 
 execute '/etc/init.d/drbd start'

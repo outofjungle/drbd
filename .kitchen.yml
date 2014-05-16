@@ -16,16 +16,6 @@ platforms:
         cpus: 1
 
 suites:
-  - name: primary
-    driver_config:
-      network:
-        - ["private_network", {ip: "33.33.33.10"}]
-    run_list:
-      - recipe[drbd::loopback]
-      - recipe[drbd::default]
-      - recipe[drbd::primary]
-    attributes:
-
   - name: secondary
     driver_config:
       network:
@@ -34,4 +24,14 @@ suites:
       - recipe[drbd::loopback]
       - recipe[drbd::default]
       - recipe[drbd::secondary]
+    attributes:
+
+  - name: primary
+    driver_config:
+      network:
+        - ["private_network", {ip: "33.33.33.10"}]
+    run_list:
+      - recipe[drbd::loopback]
+      - recipe[drbd::default]
+      - recipe[drbd::primary]
     attributes:

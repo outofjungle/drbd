@@ -7,7 +7,7 @@ directory '/mnt/drbd' do
   mode 00755
 end
 
-execute '/sbin/drbdadm -- --overwrite-data-of-peer primary disk1'
+execute '/sbin/drbdadm -- --overwrite-data-of-peer primary r0'
 
 ruby_block 'wait till sync happen' do
   block do
@@ -23,16 +23,16 @@ ruby_block 'wait till sync happen' do
       Chef::Log.info( "Waiting for #{wait} seconds for sync" )
       sleep( wait )
 
-      cmd = shell_out( 'cat /proc/drbd' )
+      cmd = shell_out( '/bin/cat /proc/drbd' )
       not_synced = cmd.stdout =~ %r(cs:Connected ro:Primary/Secondary ds:UpToDate/UpToDate)
     end while not_synced.nil?
   end
 end
 
-execute 'mkfs.ext3 /dev/drbd1' do
-  not_if 'file -sL /dev/drbd1 | grep ext3'
+execute '/sbin/mkfs.ext3 /dev/drbd0' do
+  not_if '/usr/bin/file -sL /dev/drbd0 | /bin/grep ext3'
 end
 
-execute 'mount -t ext3 /dev/drbd1 /mnt/drbd' do
-  not_if 'mount | grep "/dev/drbd1"'
+execute '/bin/mount -t ext3 /dev/drbd0 /mnt/drbd' do
+  not_if '/bin/mount | /bin/grep "/dev/drbd0"'
 end
