@@ -1,13 +1,3 @@
-# drbd cookbook
+# DRBD cookbook
 
-# Requirements
-
-# Usage
-
-# Attributes
-
-# Recipes
-
-# Author
-
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+Quick and dirty way to set up and configure DRBD on two vagrant nodes.
