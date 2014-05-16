@@ -9,7 +9,7 @@ end
 
 execute '/sbin/drbdadm -- --overwrite-data-of-peer primary r0'
 
-ruby_block 'wait till sync happen' do
+ruby_block 'wait till sync completes' do
   block do
     exp = 0
     base = 2
