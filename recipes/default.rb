@@ -20,7 +20,7 @@ execute '/bin/rpm -ivh http://elrepo.org/elrepo-release-6-5.el6.elrepo.noarch.rp
   not_if { ::File.exists? '/etc/yum.repos.d/elrepo.repo' }
 end
 
-packages = %w(kmod-drbd83 drbd83-utils)
+packages = %w(kmod-drbd84 drbd84-utils)
 packages.each do | pkg |
   execute "/usr/bin/yum install -y #{pkg}" do
     not_if "/bin/rpm -qa #{pkg} | /bin/grep #{pkg}"
